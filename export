@@ -1,0 +1,8 @@
+#!/bin/bash
+
+for f in conan/*/conanfile.py; do
+	cp $f .
+	conan export spiessensm/testing
+done
+
+rm -f conanfile.py
