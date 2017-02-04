@@ -5,10 +5,9 @@ import shutil
 
 class Tm4cDriverlib(ConanFile):
 	name="TM4C-driverlib"
-	version="2.1.3.156"
+	version="2.1.3.156a"
 	description="""
 		TivaWare driver library from Texas Instruments.
-		Nothing is changed from the original release by Texas Instruments.
 		Only arm-none-eabi-gcc toolchain is supported.
 		"""
 	url="http://www.ti.com/tool/SW-TM4C"
@@ -18,10 +17,10 @@ class Tm4cDriverlib(ConanFile):
 	exports="*"
 
 	def source(self):
-		download("https://github.com/CynaraKrewe/TivaWare_TM4C/archive/v2.1.3.156.zip", "TivaWare_TM4C-2.1.3.156.zip")
-		unzip("TivaWare_TM4C-2.1.3.156.zip")
-		shutil.move("TivaWare_TM4C-2.1.3.156", "TivaWare_TM4C")
-		os.unlink("TivaWare_TM4C-2.1.3.156.zip")
+		download("https://github.com/CynaraKrewe/TivaWare_TM4C/archive/v2.1.3.156a.zip", "TivaWare_TM4C-2.1.3.156a.zip")
+		unzip("TivaWare_TM4C-2.1.3.156a.zip")
+		shutil.move("TivaWare_TM4C-2.1.3.156a", "TivaWare_TM4C")
+		os.unlink("TivaWare_TM4C-2.1.3.156a.zip")
 
 	def build(self):
 		self.run("cd TivaWare_TM4C/driverlib; make")
