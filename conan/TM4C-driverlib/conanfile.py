@@ -14,7 +14,6 @@ class Tm4cDriverlib(ConanFile):
 	license="TI BSD"
 	author="Mathias Spiessens"
 	build_policy="missing"
-	exports="*"
 
 	def source(self):
 		download("https://github.com/CynaraKrewe/TivaWare_TM4C/archive/v2.1.3.156a.zip", "TivaWare_TM4C-2.1.3.156a.zip")

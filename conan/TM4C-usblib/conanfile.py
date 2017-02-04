@@ -15,7 +15,6 @@ class Tm4cUsblib(ConanFile):
 	license="TI BSD"
 	author="Mathias Spiessens"
 	build_policy="missing"
-	exports="*"
 	requires = "TM4C-driverlib/2.1.3.156a@spiessensm/stable"
 
 	def source(self):
