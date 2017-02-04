@@ -1,6 +1,8 @@
 # TivaWare_TM4C
 
-This is a redistribution of the Texas Instruments TivaWare™ software for C Series. The only addition is conan package recipes for some of the components, see the "conan" subfolder. 
+This is a redistribution of the Texas Instruments TivaWare™ software for C Series. 
+Conan package recipes have been added for some of the components, see the "conan" subfolder.
+This redistribution can include modifications for bug fixes.
 
 Quote from Texas Instruments:
 
