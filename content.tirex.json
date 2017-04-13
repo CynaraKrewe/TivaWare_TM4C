@@ -1490,7 +1490,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-DK-TM4C123G-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-DK-TM4C123G-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -1523,7 +1523,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-DK-TM4C129X-EM-TRF7970ATB-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-DK-TM4C129X-EM-TRF7970ATB-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -1557,7 +1557,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-DK-TM4C129X-BOOST-DLP7970ABP-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-DK-TM4C129X-BOOST-DLP7970ABP-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -1676,7 +1676,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-DK-TM4C129X-BOOSTXL-SENSHUB-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-DK-TM4C129X-BOOSTXL-SENSHUB-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -2701,7 +2701,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-DK-TM4C129X-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-DK-TM4C129X-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -2734,7 +2734,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-BREAKOUT-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-BREAKOUT-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -2768,7 +2768,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C123GXL-BOOST-CAPSENSE-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C123GXL-BOOST-CAPSENSE-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -2853,7 +2853,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-KENTEC-S1-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-KENTEC-S1-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -2972,7 +2972,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-SENSHUB-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-SENSHUB-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -3006,7 +3006,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-BATTPACK-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C123GXL-BOOSTXL-BATTPACK-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -3040,7 +3040,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C123GXL-BOOST-DLPTRF7970ABP-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C123GXL-BOOST-DLPTRF7970ABP-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -3297,7 +3297,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C123GXL-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C123GXL-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -4017,7 +4017,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C129EXL-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C129EXL-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -4135,7 +4135,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C1294XL-BOOSTXL-SENSHUB-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C1294XL-BOOSTXL-SENSHUB-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -4169,7 +4169,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C1294XL-BOOSTXL-BATTPACK-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C1294XL-BOOSTXL-BATTPACK-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -4203,7 +4203,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C1294XL-BOOST-CC3100-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C1294XL-BOOST-CC3100-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -4288,7 +4288,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C1294XL-BOOSTXL-KENTEC-S1-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C1294XL-BOOSTXL-KENTEC-S1-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -4322,7 +4322,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C1294XL-BOOST-DLPTRF7970ABP-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C1294XL-BOOST-DLPTRF7970ABP-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -4371,6 +4371,22 @@
    "license" : "EULA.txt"
 }
 ,{
+   "link" : "examples/boards/ek-tm4c1294xl/boot_demo_emac_flash/ccs",
+   "actions" : "import",
+   "resourceType" : "project",
+   "devtools" : [
+      "EK-TM4C1294XL"
+   ],
+   "name" : "boot_demo_emac_flash",
+   "categories" : [
+      [
+         "Development Tools",
+         "Examples"
+      ]
+   ],
+   "license" : "EULA.txt"
+}
+,{
    "link" : "examples/boards/ek-tm4c1294xl/boot_demo1/ccs",
    "actions" : "import",
    "resourceType" : "project",
@@ -4410,6 +4426,22 @@
       "EK-TM4C1294XL"
    ],
    "name" : "boot_serial",
+   "categories" : [
+      [
+         "Development Tools",
+         "Examples"
+      ]
+   ],
+   "license" : "EULA.txt"
+}
+,{
+   "link" : "examples/boards/ek-tm4c1294xl/boot_emac_flash/ccs",
+   "actions" : "import",
+   "resourceType" : "project",
+   "devtools" : [
+      "EK-TM4C1294XL"
+   ],
+   "name" : "boot_emac_flash",
    "categories" : [
       [
          "Development Tools",
@@ -4803,7 +4835,7 @@
    "license" : "EULA.txt"
 }
 ,{
-   "link" : "/docs/SW-EK-TM4C1294XL-UG-2.1.3.156.pdf",
+   "link" : "/docs/SW-EK-TM4C1294XL-UG-2.1.4.178.pdf",
    "actions" : "import",
    "resourceType" : "file",
    "devtools" : [
@@ -5361,7 +5393,7 @@
       "quick"
    ],
    "devices" : [
-      "dk-tm4c123g"
+      "TM4C123GH6PGE"
    ]
 }
 ,{
@@ -5382,7 +5414,7 @@
       "users guide"
    ],
    "devices" : [
-      "dk-tm4c123g"
+      "TM4C123GH6PGE"
    ]
 }
 ,{
@@ -5404,7 +5436,7 @@
       "quick"
    ],
    "devices" : [
-      "dk-tm4c129x"
+      "TM4C129XNCZAD"
    ]
 }
 ,{
@@ -5425,7 +5457,7 @@
       "users guide"
    ],
    "devices" : [
-      "dk-tm4c129x"
+      "TM4C129XNCZAD"
    ]
 }
 ,{
@@ -5446,7 +5478,7 @@
       "Quick"
    ],
    "devices" : [
-      "ek-tm4c123gxl"
+      "TM4C123GH6PM"
    ]
 }
 ,{
@@ -5467,7 +5499,7 @@
       "users guide"
    ],
    "devices" : [
-      "ek-tm4c123gxl"
+      "TM4C123GH6PM"
    ]
 }
 ,{
@@ -5488,7 +5520,7 @@
       "Quick"
    ],
    "devices" : [
-      "ek-tm4c1294xl"
+      "TM4C1294NCPDT"
    ]
 }
 ,{
@@ -5509,7 +5541,7 @@
       "users guide"
    ],
    "devices" : [
-      "ek-tm4c1294xl"
+      "TM4C1294NCPDT"
    ]
 }
 ,{
@@ -5530,7 +5562,7 @@
       "users guide"
    ],
    "devices" : [
-      "ek-tm4c1294xl"
+      "TM4C1294NCPDT"
    ]
 }
 ,{
@@ -5551,7 +5583,7 @@
       "Quick"
    ],
    "devices" : [
-      "ek-tm4c129exl"
+      "TM4C129ENCPDT"
    ]
 }
 ,{
@@ -5572,7 +5604,7 @@
       "users guide"
    ],
    "devices" : [
-      "ek-tm4c129exl"
+      "TM4C129ENCPDT"
    ]
 }
 ,{
@@ -5593,11 +5625,11 @@
       "users guide"
    ],
    "devices" : [
-      "ek-tm4c129exl"
+      "TM4C129ENCPDT"
    ]
 }
 ,{
-   "link" : "docs/SW-TM4C-DRL-UG-2.1.3.156.pdf",
+   "link" : "docs/SW-TM4C-DRL-UG-2.1.4.178.pdf",
    "resourceType" : "file",
    "name" : "User's Guide",
    "categories" : [
@@ -5611,7 +5643,7 @@
    ]
 }
 ,{
-   "link" : "docs/SW-TM4C-GRL-UG-2.1.3.156.pdf",
+   "link" : "docs/SW-TM4C-GRL-UG-2.1.4.178.pdf",
    "resourceType" : "file",
    "name" : "User's Guide",
    "categories" : [
@@ -5625,7 +5657,7 @@
    ]
 }
 ,{
-   "link" : "docs/SW-TM4C-SENSORLIB-UG-2.1.3.156.pdf",
+   "link" : "docs/SW-TM4C-SENSORLIB-UG-2.1.4.178.pdf",
    "resourceType" : "file",
    "name" : "User's Guide",
    "categories" : [
@@ -5639,7 +5671,7 @@
    ]
 }
 ,{
-   "link" : "docs/SW-TM4C-USBL-UG-2.1.3.156.pdf",
+   "link" : "docs/SW-TM4C-USBL-UG-2.1.4.178.pdf",
    "resourceType" : "file",
    "name" : "User's Guide",
    "categories" : [

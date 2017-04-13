@@ -2,7 +2,7 @@
 //
 // exosite_hal_lwip.c - Abstraction Layer between exosite and eth_client_lwip.
 //
-// Copyright (c) 2013-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 // Texas Instruments (TI) is supplying this software for use solely and
@@ -18,7 +18,7 @@
 // CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 // DAMAGES, FOR ANY REASON WHATSOEVER.
 // 
-// This is part of revision 2.1.3.156 of the EK-TM4C1294XL Firmware Package.
+// This is part of revision 2.1.4.178 of the EK-TM4C1294XL Firmware Package.
 //
 //*****************************************************************************
 
@@ -29,6 +29,8 @@
 #include "inc/hw_ints.h"
 #include "driverlib/eeprom.h"
 #include "driverlib/interrupt.h"
+#include "driverlib/rom.h"
+#include "driverlib/rom_map.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/systick.h"
 #include "drivers/eth_client_lwip.h"
@@ -243,7 +245,8 @@ exoHAL_WriteMetaItem(unsigned char * pucBuffer, int iLength,
         // Write the info to the EEPROM.
         //
         EEPROMProgram((uint32_t *)pucBuffer,
-                (uint32_t)(EXOMETA_ADDR_OFFSET + iOffset), (uint32_t)iLength);
+                      (uint32_t)(EXOMETA_ADDR_OFFSET + iOffset),
+                      (uint32_t)iLength);
 
         //
         // Set EEPROM status to IDLE.
@@ -273,8 +276,7 @@ exoHAL_WriteMetaItem(unsigned char * pucBuffer, int iLength,
 //
 //*****************************************************************************
 void
-exoHAL_ReadMetaItem(unsigned char * pucBuffer, int iLength,
-        int iOffset)
+exoHAL_ReadMetaItem(unsigned char * pucBuffer, int iLength, int iOffset)
 {
     //
     // Make sure the EEPROM is initialized and idle.
@@ -290,7 +292,8 @@ exoHAL_ReadMetaItem(unsigned char * pucBuffer, int iLength,
         // Read the requested data.
         //
         EEPROMRead((uint32_t *)pucBuffer,
-                (uint32_t)(EXOMETA_ADDR_OFFSET + iOffset), (uint32_t)iLength);
+                   (uint32_t)(EXOMETA_ADDR_OFFSET + iOffset),
+                   (uint32_t)iLength);
 
         //
         // Set EEPROM status to IDLE.
@@ -320,7 +323,6 @@ exoHAL_ResetConnection(void)
     HWREGBITW(&g_sExosite.ui32Flags, FLAG_CONNECT_WAIT) = 0;
     HWREGBITW(&g_sExosite.ui32Flags, FLAG_CONNECTED) = 0;
     HWREGBITW(&g_sExosite.ui32Flags, FLAG_RECEIVED) = 0;
-    HWREGBITW(&g_sExosite.ui32Flags, FLAG_SENT) = 0;
     HWREGBITW(&g_sExosite.ui32Flags, FLAG_BUSY) = 0;
     HWREGBITW(&g_sExosite.ui32Flags, FLAG_PROXY_SET) = 0;
 
@@ -389,9 +391,6 @@ exoHAL_ExositeEnetEvents(uint32_t ui32Event, void *pvData, uint32_t ui32Param)
                 // Write to the ring buffer.
                 //
                 RingBufWrite(&g_sEnetBuffer, pD, ui32Param);
-            }
-            else
-            {
             }
 
             //
@@ -546,23 +545,18 @@ exoHAL_ExositeEnetEvents(uint32_t ui32Event, void *pvData, uint32_t ui32Param)
         //
         case ETH_CLIENT_EVENT_SEND:
         {
-
             break;
         }
 
-
         case ETH_CLIENT_EVENT_ERROR:
         {
-
             break;
         }
 
         default:
         {
-
             break;
         }
-
     }
 }
 
@@ -576,7 +570,6 @@ exoHAL_ExositeInit(void)
 {
     if (HWREGBITW(&g_sExosite.ui32Flags, FLAG_ENET_INIT) == 0)
     {
-
 #if NO_SYS
         //
         // Configure SysTick for a periodic interrupt.
@@ -664,12 +657,8 @@ exoHAL_ReadUUID(unsigned char ucIfNbr, unsigned char * pucUUIDBuf)
     // Fill pucUUIDBuf.
     //
     usprintf((char *)pucUUIDBuf,"%02x%02x%02x%02x%02x%02x",
-                                                (char)pui8MACAddr[0],
-                                                (char)pui8MACAddr[1],
-                                                (char)pui8MACAddr[2],
-                                                (char)pui8MACAddr[3],
-                                                (char)pui8MACAddr[4],
-                                                (char)pui8MACAddr[5]);
+             (char)pui8MACAddr[0], (char)pui8MACAddr[1], (char)pui8MACAddr[2],
+             (char)pui8MACAddr[3], (char)pui8MACAddr[4], (char)pui8MACAddr[5]);
 
     //
     // Return the size of the MAC.
@@ -768,15 +757,11 @@ exoHAL_SocketOpenTCP(unsigned char *pucServer)
             // Delay, wait for response and continue.
             //
 #if NO_SYS
-            SysCtlDelay(((g_ui32SysClock / 3) / 100));
+            MAP_SysCtlDelay(((g_ui32SysClock / 3) / 100));
 #elif RTOS_FREERTOS
             vTaskDelay(10 / portTICK_RATE_MS);
-#endif // #if NO_SYS
+#endif
             continue;
-        }
-        else
-        {
-
         }
 
         //
@@ -845,8 +830,7 @@ exoHAL_SocketOpenTCP(unsigned char *pucServer)
         i32Connected = exoHAL_ServerConnect(0);
 
         //
-        // If connected, return success.
-        // else delay and decrement timeout.
+        // If connected, return success, else delay and decrement timeout.
         //
         if (i32Connected != -1)
         {
@@ -858,13 +842,13 @@ exoHAL_SocketOpenTCP(unsigned char *pucServer)
             // Delay and wait for response.
             //
 #if NO_SYS
-            SysCtlDelay(g_ui32SysClock / 3);
+            MAP_SysCtlDelay(g_ui32SysClock / 3);
 #elif RTOS_FREERTOS
             vTaskDelay(1000 / portTICK_RATE_MS);
-#endif // #if NO_SYS
-
+#endif
         }
     }
+
     //
     // We failed close the connection.
     //
@@ -908,9 +892,9 @@ exoHAL_ServerConnect(long lSocket)
 //! \param  pcBuffer - string buffer containing info to send.
 //! \param iLength - size of string in bytes.
 //!
-//! This function sends data out to the Internet.
+//! This function sends data out to the Internet or the connected server.
 //!
-//! \return Number of bytes sent.
+//! \return Number of bytes sent to the server/internet.
 //
 //*****************************************************************************
 unsigned char
@@ -928,43 +912,49 @@ exoHAL_SocketSend(long lSocket, char * pcBuffer, int iLength)
     //
     if(ui32IPAddr == 0 || ui32IPAddr == 0xffffffff )
     {
-        return 0;
+        return (0);
     }
 
-    if (HWREGBITW(&g_sExosite.ui32Flags, FLAG_CONNECTED))
+    //
+    // Check if still connected to the server.
+    //
+    if (HWREGBITW(&g_sExosite.ui32Flags, FLAG_CONNECTED) == 0)
     {
         //
-        // Send.
+        // No connection to server.  Return 0, indicating that no data has been
+        // sent to the server.
         //
-        EthClientSend((int8_t *)pcBuffer, (uint32_t)iLength);
-
-        //
-        // Set the SENT flag.
-        //
-        HWREGBITW(&g_sExosite.ui32Flags, FLAG_SENT) = 1;
-
-        //
-        // Return the number of bytes sent.
-        //
-        return iLength;
+        return (0);
     }
-    else
-    {
-        return 0;
-    }
+
+    //
+    // If we reached here, then we are connected to the server.  Send the data.
+    //
+    EthClientSend((int8_t *)pcBuffer, (uint32_t)iLength);
+
+    //
+    // Return the number of bytes sent.
+    //
+    return (uint32_t)iLength;
 }
 
 //*****************************************************************************
 //
-//! Returns data from the buffer.
+//! Returns data from the receive buffer.
 //!
 //! \param lSocket - socket handle.
 //! \param pcBuffer - string buffer to put info we receive.
 //! \param iLength - size of buffer in bytes.
 //!
-//! This function reads data from the receive buffer.
+//! This function reads data from the receive buffer.  If no data is available
+//! in the receive buffer, this functions waits for upto 3 seconds for data to
+//! be written into receive buffer.
 //!
-//! \return Number of bytes received.
+//! The receive buffer is filled by the network events handler
+//! exoHAL_ExositeEnetEvents, which is called by the eth_client_lwip driver on
+//! receiving tcp packets.
+//!
+//! \return Number of bytes read out of the receive buffer.
 //
 //*****************************************************************************
 unsigned char
@@ -975,64 +965,83 @@ exoHAL_SocketRecv(long lSocket, char * pcBuffer, int iLength)
     ui32Timeout = 10;
 
     //
-    // Block until we receive our response.
+    // Determine how much of the buffer have we used.  In other words,
+    // determine how much unread data is available.
     //
-    while(HWREGBITW(&g_sExosite.ui32Flags, FLAG_SENT) == 1 &&
-            HWREGBITW(&g_sExosite.ui32Flags, FLAG_RECEIVED) == 0 &&
-            ui32Timeout)
+    ui32Used = RingBufUsed(&g_sEnetBuffer);
+
+    //
+    // Check if unread data is available in the buffer.
+    //
+    if(ui32Used == 0)
     {
         //
-        // Decrement timeout
+        // No unread data is available in the buffer.  Block until we receive
+        // a response or timeout.
         //
-        ui32Timeout--;
+        while(HWREGBITW(&g_sExosite.ui32Flags, FLAG_RECEIVED) == 0 &&
+              ui32Timeout)
+        {
+            //
+            // Decrement timeout
+            //
+            ui32Timeout--;
 
-        //
-        // Delay.
-        //
+            //
+            // Delay for about 300 msec.
+            //
 #if NO_SYS
-        SysCtlDelay(g_ui32SysClock / 10);
+            MAP_SysCtlDelay(g_ui32SysClock / 10);
 #elif RTOS_FREERTOS
-        vTaskDelay(300 / portTICK_RATE_MS);
-#endif // #if NO_SYS
-    }
-
-    if(ui32Timeout != 0)
-    {
-        //
-        // Determine how much of the buffer have we used.
-        //
-        ui32Used = RingBufUsed(&g_sEnetBuffer);
-
-        //
-        // If the number of bytes being requested is greater than what we have,
-        // only read the number of bytes out that we have.
-        //
-        if (ui32Used < iLength)
-        {
-            //
-            // Read from the buffer.
-            //
-            RingBufRead(&g_sEnetBuffer, (uint8_t *)pcBuffer, ui32Used);
-            return (unsigned char)ui32Used;
-        }
-        else
-        {
-            //
-            // Read from the buffer.
-            //
-            RingBufRead(&g_sEnetBuffer, (uint8_t *)pcBuffer,
-                        (uint32_t)iLength);
-            return (unsigned char)iLength;
+            vTaskDelay(300 / portTICK_RATE_MS);
+#endif
         }
     }
-    else
+
+    //
+    // Check if we reached here on timeout.
+    //
+    if(ui32Timeout == 0)
     {
         //
-        // Timeout.
+        // Yes - We reached here on Timeout.  Return 0, indicating no data has
+        // been received.
         //
+        return 0;
     }
 
-    return 0;
+    //
+    // If we reached here, it means either there is previously unread data in
+    // the buffer or we received new data while waiting.  Reset the flag so
+    // that next time this function is called, we know when new data is
+    // received.
+    //
+    HWREGBITW(&g_sExosite.ui32Flags, FLAG_RECEIVED) = 0;
+
+    //
+    // Determine how much of the buffer have we used.  In other words,
+    // determine how much unread data is available.
+    //
+    ui32Used = RingBufUsed(&g_sEnetBuffer);
+
+    //
+    // If the number of bytes being requested is less than what we have,
+    // only read the number of bytes requested.
+    //
+    if (iLength < ui32Used)
+    {
+        ui32Used = iLength;
+    }
+
+    //
+    // Read the required bytes from the buffer.
+    //
+    RingBufRead(&g_sEnetBuffer, (uint8_t *)pcBuffer, ui32Used);
+
+    //
+    // Return the number of bytes read out.
+    //
+    return (unsigned char)ui32Used;
 }
 
 //*****************************************************************************
@@ -1060,13 +1069,12 @@ exoHAL_MSDelay(unsigned short usDelay)
     //
     // Delay
     //
-    SysCtlDelay(ui32Delay);
+    MAP_SysCtlDelay(ui32Delay);
 
 #elif RTOS_FREERTOS
     //
     // Delay.
     //
     vTaskDelay(usDelay / portTICK_RATE_MS);
-#endif // #if NO_SYS
-
+#endif
 }

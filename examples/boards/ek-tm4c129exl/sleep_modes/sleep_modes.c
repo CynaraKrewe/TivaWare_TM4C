@@ -2,7 +2,7 @@
 //
 // sleep_modes.c - Sleep modes example.
 //
-// Copyright (c) 2014-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2014-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 //
 //*****************************************************************************

@@ -11,7 +11,7 @@ ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider=%MFGNAME%
 LayoutFile=layout.inf
 CatalogFile=usb_dev_cserial.cat
-DriverVer=07/25/2016,2.1.3.156
+DriverVer=02/22/2017,2.1.4.178
 
 [SourceDisksNames]
 1=%DISKNAME%,,,

@@ -2,7 +2,7 @@
 //
 // eth_client.c - This is the portion of the ethernet client.
 //
-// Copyright (c) 2013-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 // Texas Instruments (TI) is supplying this software for use solely and
@@ -18,7 +18,7 @@
 // CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 // DAMAGES, FOR ANY REASON WHATSOEVER.
 // 
-// This is part of revision 2.1.3.156 of the EK-TM4C1294XL Firmware Package.
+// This is part of revision 2.1.4.178 of the EK-TM4C1294XL Firmware Package.
 //
 //*****************************************************************************
 #include <stdint.h>
@@ -678,9 +678,9 @@ EthClientDNSResolve(void)
     if(iRet == ERR_OK)
     {
         //
-        // Stop calling the DNS timer function.
+        // Tell the main program that a DNS address was found.
         //
-        HWREGBITW(&g_sEnet.ui32Flags, FLAG_TIMER_DNS_EN) = 0;
+        HWREGBITW(&g_sEnet.ui32Flags, FLAG_DNS_ADDRFOUND) = 1;
     }
 
     //
@@ -874,7 +874,6 @@ EthClientTick(uint32_t ui32TickMS)
 // Required by lwIP library to support any host-related timer functions.
 //
 //*****************************************************************************
-
 void
 lwIPHostTimerHandler(void)
 {

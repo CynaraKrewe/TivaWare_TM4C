@@ -219,6 +219,13 @@ volatile uint32_t g_ui32NormalInts;
 volatile uint32_t g_ui32AbnormalInts;
 
 /**
+ * Status flag for EEE link establishged
+ */
+#if EEE_SUPPORT
+volatile bool g_bEEELinkActive;
+#endif
+
+/**
  * A macro which determines whether a pointer is within the SRAM address
  * space and, hence, points to a buffer that the Ethernet MAC can directly
  * DMA from.
@@ -303,6 +310,11 @@ tivaif_hwinit(struct netif *psNetif)
 {
   uint16_t ui16Val;
 
+  /* clear the EEE Link Active flag */
+#if EEE_SUPPORT
+  g_bEEELinkActive = false;
+#endif
+
   /* Set MAC hardware address length */
   psNetif->hwaddr_len = ETHARP_HWADDR_LEN;
 
@@ -317,6 +329,15 @@ tivaif_hwinit(struct netif *psNetif)
 
   /* Initialize the DMA descriptors. */
   InitDMADescriptors();
+
+#if defined(EMAC_PHY_IS_EXT_MII) || defined(EMAC_PHY_IS_EXT_RMII)
+  /* If PHY is external then reset the PHY before configuring it */
+  EMACPHYWrite(EMAC0_BASE, PHY_PHYS_ADDR, EPHY_BMCR,
+          EPHY_BMCR_MIIRESET);
+
+  while((EMACPHYRead(EMAC0_BASE, PHY_PHYS_ADDR, EPHY_BMCR) &
+          EPHY_BMCR_MIIRESET) == EPHY_BMCR_MIIRESET);
+#endif
 
   /* Clear any stray PHY interrupts that may be set. */
   ui16Val = EMACPHYRead(EMAC0_BASE, PHY_PHYS_ADDR, EPHY_MISR1);
@@ -378,8 +399,13 @@ tivaif_hwinit(struct netif *psNetif)
   IntMasterEnable();
 
   /* Tell the PHY to start an auto-negotiation cycle. */
+#if defined(EMAC_PHY_IS_EXT_MII) || defined(EMAC_PHY_IS_EXT_RMII)
+  EMACPHYWrite(EMAC0_BASE, PHY_PHYS_ADDR, EPHY_BMCR, (EPHY_BMCR_SPEED |
+               EPHY_BMCR_DUPLEXM | EPHY_BMCR_ANEN | EPHY_BMCR_RESTARTAN));
+#else
   EMACPHYWrite(EMAC0_BASE, PHY_PHYS_ADDR, EPHY_BMCR, (EPHY_BMCR_ANEN |
                EPHY_BMCR_RESTARTAN));
+#endif
 }
 
 #ifdef DEBUG
@@ -963,6 +989,9 @@ void
 tivaif_process_phy_interrupt(struct netif *psNetif)
 {
     uint16_t ui16Val, ui16Status;
+#if EEE_SUPPORT
+    uint16_t ui16EEEStatus;
+#endif
     uint32_t ui32Config, ui32Mode, ui32RxMaxFrameSize;
 
     /* Read the PHY interrupt status.  This clears all interrupt sources.
@@ -973,6 +1002,13 @@ tivaif_process_phy_interrupt(struct netif *psNetif)
 
     /* Read the current PHY status. */
     ui16Status = EMACPHYRead(EMAC0_BASE, PHY_PHYS_ADDR, EPHY_STS);
+
+    /* If EEE mode support is requested then read the value of the Link
+     * partners status
+     */
+#if EEE_SUPPORT
+    ui16EEEStatus = EMACPHYMMDRead(EMAC0_BASE, PHY_PHYS_ADDR, 0x703D);
+#endif
 
     /* Has the link status changed? */
     if(ui16Val & EPHY_MISR1_LINKSTAT)
@@ -987,6 +1023,19 @@ tivaif_process_phy_interrupt(struct netif *psNetif)
             tcpip_callback((tcpip_callback_fn)netif_set_link_up, psNetif);
 #endif
 
+            /* if the link has been advertised as EEE capable then configure
+             * the MAC register for LPI timers and manually set the PHY link
+             * status bit
+             */
+#if EEE_SUPPORT
+            if(ui16EEEStatus & 0x2)
+            {
+                EMACLPIConfig(EMAC0_BASE, true, 1000, 36);
+                EMACLPILinkSet(EMAC0_BASE);
+                g_bEEELinkActive = true;
+            }
+#endif
+
             /* In this case we drop through since we may need to reconfigure
              * the MAC depending upon the speed and half/fui32l-duplex settings.
              */
@@ -998,6 +1047,16 @@ tivaif_process_phy_interrupt(struct netif *psNetif)
             netif_set_link_down(psNetif);
 #else
             tcpip_callback((tcpip_callback_fn)netif_set_link_down, psNetif);
+#endif
+
+            /* if the link has been advertised as EEE capable then clear the
+             * MAC register LPI timers and manually clear the PHY link status
+             * bit
+             */
+#if EEE_SUPPORT
+           	g_bEEELinkActive = false;
+           	EMACLPILinkClear(EMAC0_BASE);
+           	EMACLPIConfig(EMAC0_BASE, false, 1000, 0);
 #endif
         }
     }
@@ -1079,6 +1138,12 @@ tivaif_interrupt(struct netif *psNetif, uint32_t ui32Status)
    */
   if(ui32Status & EMAC_INT_TRANSMIT)
   {
+#if EEE_SUPPORT
+      if(g_bEEELinkActive)
+      {
+          EMACLPIEnter(EMAC0_BASE);
+      }
+#endif
       tivaif_process_transmit(tivaif);
   }
 

@@ -13,13 +13,13 @@ terminal, once the prompt is displayed, for details of these configuration.
 
 The examples from NIST specification at the following link have been used
 to validate the AES outptut.
-http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
+http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf
 
 Please note that uDMA is not used in this example.
 
 -------------------------------------------------------------------------------
 
-Copyright (c) 2013-2016 Texas Instruments Incorporated.  All rights reserved.
+Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.
 Software License Agreement
 
 Texas Instruments (TI) is supplying this software for use solely and
@@ -35,4 +35,4 @@ A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. TI SHALL NOT, UNDER ANY
 CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, FOR ANY REASON WHATSOEVER.
 
-This is part of revision 2.1.3.156 of the EK-TM4C129EXL Firmware Package.
+This is part of revision 2.1.4.178 of the EK-TM4C129EXL Firmware Package.

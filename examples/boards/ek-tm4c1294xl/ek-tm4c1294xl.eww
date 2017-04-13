@@ -14,6 +14,9 @@
     <path>$WS_DIR$\blinky\blinky.ewp</path>
   </project>
   <project>
+    <path>$WS_DIR$\boot_demo_emac_flash\boot_demo_emac_flash.ewp</path>
+  </project>
+  <project>
     <path>$WS_DIR$\boot_demo1\boot_demo1.ewp</path>
   </project>
   <project>
@@ -21,6 +24,9 @@
   </project>
   <project>
     <path>$WS_DIR$\boot_serial\boot_serial.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\boot_emac_flash\boot_emac_flash.ewp</path>
   </project>
   <project>
     <path>$WS_DIR$\enet_io\enet_io.ewp</path>
@@ -114,6 +120,10 @@
         <configuration>Debug</configuration>
       </member>
       <member>
+        <project>boot_demo_emac_flash</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
         <project>boot_demo1</project>
         <configuration>Debug</configuration>
       </member>
@@ -123,6 +133,10 @@
       </member>
       <member>
         <project>boot_serial</project>
+        <configuration>Debug</configuration>
+      </member>
+      <member>
+        <project>boot_emac_flash</project>
         <configuration>Debug</configuration>
       </member>
       <member>

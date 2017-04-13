@@ -4,7 +4,7 @@
 //                                  BOOSTXL-K350QVG-S1 TFT display drivers with
 //                                  an SSD2119 and SPI interface.
 //
-// Copyright (c) 2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2016-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 // Texas Instruments (TI) is supplying this software for use solely and
@@ -20,7 +20,7 @@
 // CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 // DAMAGES, FOR ANY REASON WHATSOEVER.
 // 
-// This is part of revision 2.1.3.156 of the EK-TM4C1294XL Firmware Package.
+// This is part of revision 2.1.4.178 of the EK-TM4C1294XL Firmware Package.
 //
 //*****************************************************************************
 #ifndef __KENTEC320X240X16_SSD2119_SPI_H__

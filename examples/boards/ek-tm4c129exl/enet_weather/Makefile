@@ -1,8 +1,8 @@
 #******************************************************************************
 #
-# Makefile - Rules for building the Sample Ethernet Weather Application using lwIP 1.4.1.
+# Makefile - Rules for building the Sample Ethernet Weather Application using lwIP.
 #
-# Copyright (c) 2013-2016 Texas Instruments Incorporated.  All rights reserved.
+# Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.
 # Software License Agreement
 # 
 # Texas Instruments (TI) is supplying this software for use solely and
@@ -18,7 +18,7 @@
 # CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 # DAMAGES, FOR ANY REASON WHATSOEVER.
 # 
-# This is part of revision 2.1.3.156 of the EK-TM4C129EXL Firmware Package.
+# This is part of revision 2.1.4.178 of the EK-TM4C129EXL Firmware Package.
 #
 #******************************************************************************
 
@@ -57,7 +57,7 @@ IPATH+=../../../../third_party/lwip-1.4.1/src/include/ipv4
 IPATH+=../../../../third_party
 
 #
-# The default rule, which causes the Sample Ethernet Weather Application using lwIP 1.4.1 to be built.
+# The default rule, which causes the Sample Ethernet Weather Application using lwIP to be built.
 #
 all: ${COMPILER}
 all: ${COMPILER}/enet_weather.axf
@@ -75,7 +75,7 @@ ${COMPILER}:
 	@mkdir -p ${COMPILER}
 
 #
-# Rules for building the Sample Ethernet Weather Application using lwIP 1.4.1.
+# Rules for building the Sample Ethernet Weather Application using lwIP.
 #
 ${COMPILER}/enet_weather.axf: ${COMPILER}/cmdline.o
 ${COMPILER}/enet_weather.axf: ${COMPILER}/commands.o

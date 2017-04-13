@@ -2,7 +2,7 @@
 //
 // io.c - I/O routines for the cc3100_http_server example application.
 //
-// Copyright (c) 2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2016-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 //
 //*****************************************************************************

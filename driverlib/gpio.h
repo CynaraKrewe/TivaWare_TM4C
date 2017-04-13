@@ -2,7 +2,7 @@
 //
 // gpio.h - Defines and Macros for GPIO API.
 //
-// Copyright (c) 2005-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2005-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.3.156 of the Tiva Peripheral Driver Library.
+// This is part of revision 2.1.4.178 of the Tiva Peripheral Driver Library.
 //
 //*****************************************************************************
 
@@ -154,6 +154,9 @@ extern uint32_t GPIOIntStatus(uint32_t ui32Port, bool bMasked);
 extern void GPIOIntClear(uint32_t ui32Port, uint32_t ui32IntFlags);
 extern void GPIOIntRegister(uint32_t ui32Port, void (*pfnIntHandler)(void));
 extern void GPIOIntUnregister(uint32_t ui32Port);
+extern void GPIOIntRegisterPin(uint32_t ui32Port, uint32_t ui32Pin,
+                               void (*pfnIntHandler)(void));
+extern void GPIOIntUnregisterPin(uint32_t ui32Port, uint32_t ui32Pin);
 extern int32_t GPIOPinRead(uint32_t ui32Port, uint8_t ui8Pins);
 extern void GPIOPinWrite(uint32_t ui32Port, uint8_t ui8Pins, uint8_t ui8Val);
 extern void GPIOPinConfigure(uint32_t ui32PinConfig);

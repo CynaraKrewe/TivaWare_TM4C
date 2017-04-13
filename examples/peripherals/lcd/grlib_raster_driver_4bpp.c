@@ -4,7 +4,7 @@
 // supporting screens attached to the LCD controller via its raster interface
 // and making use of a 16-color, 4bpp display buffer.
 //
-// Copyright (c) 2013-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.3.156 of the Tiva Graphics Library.
+// This is part of revision 2.1.4.178 of the Tiva Graphics Library.
 //
 //*****************************************************************************
 

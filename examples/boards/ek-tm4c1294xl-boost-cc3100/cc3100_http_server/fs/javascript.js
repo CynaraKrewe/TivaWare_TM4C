@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2013-2016 Texas Instruments Incorporated.  All rights reserved. -->
+<!-- Copyright (c) 2013-2017 Texas Instruments Incorporated.  All rights reserved. -->
 var HTTPrequest = new XMLHttpRequest();
 
 window.onload = function()

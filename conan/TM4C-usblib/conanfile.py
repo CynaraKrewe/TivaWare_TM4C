@@ -5,7 +5,7 @@ import shutil
 
 class Tm4cUsblib(ConanFile):
 	name="TM4C-usblib"
-	version="2.1.3.156a"
+	version="2.1.4.178"
 	description="""
 		TivaWare usb library from Texas Instruments.
 		Nothing is changed from the original release by Texas Instruments.
@@ -15,13 +15,13 @@ class Tm4cUsblib(ConanFile):
 	license="TI BSD"
 	author="Mathias Spiessens"
 	build_policy="missing"
-	requires = "TM4C-driverlib/2.1.3.156a@spiessensm/stable"
+	requires = "TM4C-driverlib/2.1.4.178@spiessensm/stable"
 
 	def source(self):
-		download("https://github.com/CynaraKrewe/TivaWare_TM4C/archive/v2.1.3.156a.zip", "TivaWare_TM4C-2.1.3.156a.zip")
-		unzip("TivaWare_TM4C-2.1.3.156a.zip")
-		shutil.move("TivaWare_TM4C-2.1.3.156a", "TivaWare_TM4C")
-		os.unlink("TivaWare_TM4C-2.1.3.156a.zip")
+		download("https://github.com/CynaraKrewe/TivaWare_TM4C/archive/v2.1.4.178.zip", "TivaWare_TM4C-2.1.4.178.zip")
+		unzip("TivaWare_TM4C-2.1.4.178.zip")
+		shutil.move("TivaWare_TM4C-2.1.4.178", "TivaWare_TM4C")
+		os.unlink("TivaWare_TM4C-2.1.4.178.zip")
 
 	def build(self):
 		self.run("cd TivaWare_TM4C/usblib; make")

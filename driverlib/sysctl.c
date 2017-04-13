@@ -2,7 +2,7 @@
 //
 // sysctl.c - Driver for the system controller.
 //
-// Copyright (c) 2005-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2005-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.3.156 of the Tiva Peripheral Driver Library.
+// This is part of revision 2.1.4.178 of the Tiva Peripheral Driver Library.
 //
 //*****************************************************************************
 
@@ -2127,6 +2127,7 @@ SysCtlClockFreqSet(uint32_t ui32Config, uint32_t ui32SysClock)
 {
     int32_t i32Timeout, i32VCOIdx, i32XtalIdx;
     uint32_t ui32MOSCCTL;
+    uint32_t ui32Delay;
     uint32_t ui32SysDiv, ui32Osc, ui32OscSelect, ui32RSClkConfig;
 
     //
@@ -2215,6 +2216,32 @@ SysCtlClockFreqSet(uint32_t ui32Config, uint32_t ui32SysClock)
         }
 
         HWREG(SYSCTL_MOSCCTL) = ui32MOSCCTL;
+        
+        //
+        // Timeout using the legacy delay value.
+        //
+        ui32Delay = 524288;
+
+        while((HWREG(SYSCTL_RIS) & SYSCTL_RIS_MOSCPUPRIS) == 0)
+        {
+            ui32Delay--;
+
+            if(ui32Delay == 0)
+            {
+                break;
+            }
+        }
+
+        //
+        // If the main oscillator failed to start up then do not switch to
+        // it and return.
+        //
+        if(ui32Delay == 0)
+        {
+            return(0);
+        }
+
+        
     }
     else
     {

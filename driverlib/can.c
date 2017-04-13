@@ -2,7 +2,7 @@
 //
 // can.c - Driver for the CAN module.
 //
-// Copyright (c) 2006-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2006-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.3.156 of the Tiva Peripheral Driver Library.
+// This is part of revision 2.1.4.178 of the Tiva Peripheral Driver Library.
 //
 //*****************************************************************************
 
@@ -1110,7 +1110,7 @@ CANIntClear(uint32_t ui32Base, uint32_t ui32IntClr)
         // Only change the interrupt pending state by setting only the
         // CAN_IF1CMSK_CLRINTPND bit.
         //
-        HWREG(ui32Base + CAN_O_IF1CMSK) |= CAN_IF1CMSK_CLRINTPND;
+        HWREG(ui32Base + CAN_O_IF1CMSK) = CAN_IF1CMSK_CLRINTPND;
 
         //
         // Send the clear pending interrupt command to the CAN controller.

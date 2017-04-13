@@ -2,7 +2,7 @@
 //
 // rom.h - Macros to facilitate calling functions in the ROM.
 //
-// Copyright (c) 2007-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2007-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.3.156 of the Tiva Peripheral Driver Library.
+// This is part of revision 2.1.4.178 of the Tiva Peripheral Driver Library.
 //
 //*****************************************************************************
 
@@ -199,7 +199,11 @@
         ((void (*)(uint32_t ui32Base,                                         \
                    uint32_t ui32SequenceNum))ROM_ADCTABLE[6])
 #endif
-#if defined(TARGET_IS_TM4C129_RA0) ||                                         \
+#if defined(TARGET_IS_TM4C123_RA1) ||                                         \
+    defined(TARGET_IS_TM4C123_RA3) ||                                         \
+    defined(TARGET_IS_TM4C123_RB1) ||                                         \
+    defined(TARGET_IS_TM4C123_RB2) ||                                         \
+    defined(TARGET_IS_TM4C129_RA0) ||                                         \
     defined(TARGET_IS_TM4C129_RA1) ||                                         \
     defined(TARGET_IS_TM4C129_RA2)
 #define ROM_ADCSequenceConfigure                                              \
@@ -633,6 +637,17 @@
 // Macros for calling ROM functions in the CAN API.
 //
 //*****************************************************************************
+#if defined(TARGET_IS_TM4C123_RA1) ||                                         \
+    defined(TARGET_IS_TM4C123_RA3) ||                                         \
+    defined(TARGET_IS_TM4C123_RB1) ||                                         \
+    defined(TARGET_IS_TM4C123_RB2) ||                                         \
+    defined(TARGET_IS_TM4C129_RA0) ||                                         \
+    defined(TARGET_IS_TM4C129_RA1) ||                                         \
+    defined(TARGET_IS_TM4C129_RA2)
+#define ROM_CANIntClear                                                       \
+        ((void (*)(uint32_t ui32Base,                                         \
+                   uint32_t ui32IntClr))ROM_CANTABLE[0])
+#endif
 #if defined(TARGET_IS_TM4C123_RA1) ||                                         \
     defined(TARGET_IS_TM4C123_RA3) ||                                         \
     defined(TARGET_IS_TM4C123_RB1) ||                                         \
@@ -2536,12 +2551,6 @@
 #define ROM_GPIOIntStatus                                                     \
         ((uint32_t (*)(uint32_t ui32Port,                                     \
                        bool bMasked))ROM_GPIOTABLE[54])
-#endif
-#if defined(TARGET_IS_TM4C129_RA0) ||                                         \
-    defined(TARGET_IS_TM4C129_RA1) ||                                         \
-    defined(TARGET_IS_TM4C129_RA2)
-#define ROM_GPIOPinWakeStatus                                                 \
-        ((uint32_t (*)(uint32_t ui32Port))ROM_GPIOTABLE[55])
 #endif
 
 //*****************************************************************************

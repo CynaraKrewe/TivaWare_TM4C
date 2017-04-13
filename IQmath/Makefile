@@ -2,7 +2,7 @@
 #
 # Makefile - A convenience makefile for internal use building IQmath.
 #
-# Copyright (c) 2010-2016 Texas Instruments Incorporated.  All rights reserved.
+# Copyright (c) 2010-2017 Texas Instruments Incorporated.  All rights reserved.
 # Software License Agreement
 # 
 # Texas Instruments (TI) is supplying this software for use solely and
@@ -18,7 +18,7 @@
 # CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 # DAMAGES, FOR ANY REASON WHATSOEVER.
 # 
-# This is part of revision 2.1.3.156 of the Tiva IQmath Library.
+# This is part of revision 2.1.4.178 of the Tiva IQmath Library.
 #
 #******************************************************************************
 

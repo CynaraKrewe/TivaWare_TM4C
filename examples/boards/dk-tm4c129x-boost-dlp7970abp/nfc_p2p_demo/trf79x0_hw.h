@@ -3,7 +3,7 @@
 // trf79x0_hw.h - Hardware Pin configuration for TRF79x0 ATB on
 // Tiva C Series TM4C129X Class silicon. Tailored for DK-TM4C129x.
 //
-// Copyright (c) 2014-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2014-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 // Texas Instruments (TI) is supplying this software for use solely and
@@ -19,7 +19,7 @@
 // CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 // DAMAGES, FOR ANY REASON WHATSOEVER.
 // 
-// This is part of revision 2.1.3.156 of the DK-TM4C129X Firmware Package.
+// This is part of revision 2.1.4.178 of the DK-TM4C129X Firmware Package.
 //
 //*****************************************************************************
 

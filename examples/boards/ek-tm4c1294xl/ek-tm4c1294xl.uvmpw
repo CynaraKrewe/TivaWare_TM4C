@@ -28,6 +28,11 @@
   </project>
 
   <project>
+    <PathAndName>.\boot_demo_emac_flash\boot_demo_emac_flash.uvproj</PathAndName>
+    <NodeIsCheckedInBatchBuild>1</NodeIsCheckedInBatchBuild>
+  </project>
+
+  <project>
     <PathAndName>.\boot_demo1\boot_demo1.uvproj</PathAndName>
     <NodeIsCheckedInBatchBuild>1</NodeIsCheckedInBatchBuild>
   </project>
@@ -39,6 +44,11 @@
 
   <project>
     <PathAndName>.\boot_serial\boot_serial.uvproj</PathAndName>
+    <NodeIsCheckedInBatchBuild>1</NodeIsCheckedInBatchBuild>
+  </project>
+
+  <project>
+    <PathAndName>.\boot_emac_flash\boot_emac_flash.uvproj</PathAndName>
     <NodeIsCheckedInBatchBuild>1</NodeIsCheckedInBatchBuild>
   </project>
 

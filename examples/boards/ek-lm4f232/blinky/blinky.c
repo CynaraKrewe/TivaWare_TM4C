@@ -2,7 +2,7 @@
 //
 // blinky.c - Simple example to blink the on-board LED.
 //
-// Copyright (c) 2011-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2011-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 // Texas Instruments (TI) is supplying this software for use solely and
@@ -18,13 +18,14 @@
 // CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 // DAMAGES, FOR ANY REASON WHATSOEVER.
 // 
-// This is part of revision 2.1.3.156 of the EK-LM4F232 Firmware Package.
+// This is part of revision 2.1.4.178 of the EK-LM4F232 Firmware Package.
 //
 //*****************************************************************************
 
 #include <stdint.h>
 #include <stdbool.h>
 #include "inc/hw_memmap.h"
+#include "driverlib/debug.h"
 #include "driverlib/gpio.h"
 #include "driverlib/sysctl.h"
 
@@ -36,6 +37,19 @@
 //! A very simple example that blinks the on-board LED.
 //
 //*****************************************************************************
+
+//*****************************************************************************
+//
+// The error routine that is called if the driver library encounters an error.
+//
+//*****************************************************************************
+#ifdef DEBUG
+void
+__error__(char *pcFilename, uint32_t ui32Line)
+{
+    while(1);
+}
+#endif
 
 //*****************************************************************************
 //

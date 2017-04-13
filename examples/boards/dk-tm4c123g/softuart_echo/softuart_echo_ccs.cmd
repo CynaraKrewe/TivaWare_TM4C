@@ -2,7 +2,7 @@
  *
  * softuart_echo_ccs.cmd - CCS linker configuration file for softuart_echo.
  *
- * Copyright (c) 2012-2016 Texas Instruments Incorporated.  All rights reserved.
+ * Copyright (c) 2012-2017 Texas Instruments Incorporated.  All rights reserved.
  * Software License Agreement
  * 
  * Texas Instruments (TI) is supplying this software for use solely and
@@ -18,7 +18,7 @@
  * CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
  * DAMAGES, FOR ANY REASON WHATSOEVER.
  * 
- * This is part of revision 2.1.3.156 of the DK-TM4C123G Firmware Package.
+ * This is part of revision 2.1.4.178 of the DK-TM4C123G Firmware Package.
  *
  *****************************************************************************/
 

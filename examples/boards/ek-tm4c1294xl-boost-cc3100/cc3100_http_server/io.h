@@ -2,7 +2,7 @@
 //
 // io.h - Prototypes for I/O routines for the enet_io example.
 //
-// Copyright (c) 2009-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2009-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 // Texas Instruments (TI) is supplying this software for use solely and

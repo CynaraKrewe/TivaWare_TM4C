@@ -2,7 +2,7 @@
 //
 // gpio.c - API for GPIO ports
 //
-// Copyright (c) 2005-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2005-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.3.156 of the Tiva Peripheral Driver Library.
+// This is part of revision 2.1.4.178 of the Tiva Peripheral Driver Library.
 //
 //*****************************************************************************
 
@@ -116,6 +116,9 @@ static const uint32_t g_ppui32GPIOIntMapSnowflake[][2] =
     { GPIO_PORTN_BASE, INT_GPION_TM4C129 },
     { GPIO_PORTP_BASE, INT_GPIOP0_TM4C129 },
     { GPIO_PORTQ_BASE, INT_GPIOQ0_TM4C129 },
+    { GPIO_PORTR_BASE, INT_GPIOR_TM4C129 },
+    { GPIO_PORTS_BASE, INT_GPIOS_TM4C129 },
+    { GPIO_PORTT_BASE, INT_GPIOT_TM4C129 },
 };
 static const uint_fast32_t g_ui32GPIOIntMapSnowflakeRows =
     (sizeof(g_ppui32GPIOIntMapSnowflake) /
@@ -406,11 +409,14 @@ GPIOIntTypeSet(uint32_t ui32Port, uint8_t ui8Pins,
     // Check the arguments.
     //
     ASSERT(_GPIOBaseValid(ui32Port));
-    ASSERT((ui32IntType == GPIO_FALLING_EDGE) ||
-           (ui32IntType == GPIO_RISING_EDGE) ||
-           (ui32IntType == GPIO_BOTH_EDGES) ||
-           (ui32IntType == GPIO_LOW_LEVEL) ||
-           (ui32IntType == GPIO_HIGH_LEVEL));
+    ASSERT(((ui32IntType & 0xF) == GPIO_FALLING_EDGE) ||
+           ((ui32IntType & 0xF) == GPIO_RISING_EDGE) ||
+           ((ui32IntType & 0xF) == GPIO_BOTH_EDGES) ||
+           ((ui32IntType & 0xF) == GPIO_LOW_LEVEL) ||
+           ((ui32IntType & 0xF) == GPIO_HIGH_LEVEL));
+    ASSERT(((ui32IntType & 0x000F0000) == 0) ||
+           (((ui32IntType & 0x000F0000) == GPIO_DISCRETE_INT) &&
+            ((ui32Port == GPIO_PORTP_BASE) || (ui32Port == GPIO_PORTQ_BASE))));
 
     //
     // Set the pin interrupt type.
@@ -983,6 +989,99 @@ GPIOIntUnregister(uint32_t ui32Port)
 
 //*****************************************************************************
 //
+//! Registers an interrupt handler for an individual pin of a GPIO port.
+//!
+//! \param ui32Port is the base address of the GPIO port.
+//! \param ui32Pin is the pin whose interrupt is to be registered.
+//! \param pfnIntHandler is a pointer to the GPIO port interrupt handling
+//! function.
+//!
+//! This function ensures that the interrupt handler specified by
+//! \e pfnIntHandler is called when an interrupt is detected from the selected
+//! pin of a GPIO port.  This function also enables the corresponding GPIO pin
+//! interrupt in the interrupt controller.
+//!
+//! \sa IntRegister() for important information about registering interrupt
+//! handlers.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+GPIOIntRegisterPin(uint32_t ui32Port, uint32_t ui32Pin,
+                   void (*pfnIntHandler)(void))
+{
+    uint32_t ui32Int;
+
+    //
+    // Check the arguments.
+    //
+    ASSERT((ui32Port == GPIO_PORTP_BASE) || (ui32Port == GPIO_PORTQ_BASE));
+    ASSERT((ui32Pin > 0) && (ui32Pin < 8));
+    ASSERT(pfnIntHandler != 0);
+
+    //
+    // Get the interrupt number associated with the specified GPIO.
+    //
+    ui32Int = _GPIOIntNumberGet(ui32Port);
+
+    //
+    // Register the interrupt handler.
+    //
+    IntRegister((ui32Int + ui32Pin), pfnIntHandler);
+
+    //
+    // Enable the GPIO pin interrupt.
+    //
+    IntEnable(ui32Int + ui32Pin);
+}
+
+//*****************************************************************************
+//
+//! Removes an interrupt handler for an individual pin of a GPIO port.
+//!
+//! \param ui32Port is the base address of the GPIO port.
+//! \param ui32Pin is the pin whose interrupt is to be unregistered.
+//!
+//! This function unregisters the interrupt handler for the specified pin of a
+//! GPIO port.  This function also disables the corresponding GPIO pin
+//! interrupt in the interrupt controller.
+//!
+//! \sa IntRegister() for important information about registering interrupt
+//! handlers.
+//!
+//! \return None.
+//
+//*****************************************************************************
+void
+GPIOIntUnregisterPin(uint32_t ui32Port, uint32_t ui32Pin)
+{
+    uint32_t ui32Int;
+
+    //
+    // Check the arguments.
+    //
+    ASSERT((ui32Port == GPIO_PORTP_BASE) || (ui32Port == GPIO_PORTQ_BASE));
+    ASSERT((ui32Pin > 0) && (ui32Pin < 8));
+
+    //
+    // Get the interrupt number associated with the specified GPIO.
+    //
+    ui32Int = _GPIOIntNumberGet(ui32Port);
+
+    //
+    // Disable the GPIO pin interrupt.
+    //
+    IntDisable(ui32Int + ui32Pin);
+
+    //
+    // UnRegister the interrupt handler.
+    //
+    IntUnregister(ui32Int + ui32Pin);
+}
+
+//*****************************************************************************
+//
 //! Reads the values present of the specified pin(s).
 //!
 //! \param ui32Port is the base address of the GPIO port.
@@ -1243,7 +1342,7 @@ void GPIOPinTypeComparatorOutput(uint32_t ui32Port, uint8_t ui8Pins)
 //! \param ui8Pins is the bit-packed representation of the pin(s).
 //!
 //! The system control output pin must be properly configured for the DIVSCLK to
-//! function correctly. This function provides the proper configuration for 
+//! function correctly. This function provides the proper configuration for
 //! those pin(s).
 //!
 //! The pin(s) are specified using a bit-packed byte, where each bit that is
@@ -2327,7 +2426,7 @@ GPIOPinTypeWakeLow(uint32_t ui32Port, uint8_t ui8Pins)
 uint32_t
 GPIOPinWakeStatus(uint32_t ui32Port)
 {
-    return(ui32Port + GPIO_O_WAKESTAT);
+    return(HWREG(ui32Port + GPIO_O_WAKESTAT));
 }
 
 //*****************************************************************************

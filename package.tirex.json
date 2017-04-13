@@ -4,11 +4,11 @@
       {
          "require" : "mandatory",
          "packageId" : "tm4c",
-         "version" : "2.1.3.156",
+         "version" : "2.1.4.178",
          "message" : "This package can only be made offline in its entirety."
       }
    ],
-   "version" : "2.1.3.156",
+   "version" : "2.1.4.178",
    "name" : "TM4C ARM® Cortex®-M4F MCU",
    "id" : "tm4c",
    "license" : "./EULA.txt",

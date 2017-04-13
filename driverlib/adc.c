@@ -2,7 +2,7 @@
 //
 // adc.c - Driver for the ADC.
 //
-// Copyright (c) 2005-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2005-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 // 
 //   Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 // 
-// This is part of revision 2.1.3.156 of the Tiva Peripheral Driver Library.
+// This is part of revision 2.1.4.178 of the Tiva Peripheral Driver Library.
 //
 //*****************************************************************************
 
@@ -78,7 +78,7 @@
 // sequencers.
 //
 //*****************************************************************************
-static uint8_t g_pui8OversampleFactor[3];
+static uint8_t g_pui8OversampleFactor[2][3];
 
 //*****************************************************************************
 //
@@ -555,9 +555,9 @@ ADCSequenceConfigure(uint32_t ui32Base, uint32_t ui32SequenceNum,
         //
         ui32Gen = (ui32Gen - ADC_TRIGGER_PWM0) * 8;
         
-        HWREG(ADC0_BASE + ADC_O_TSSEL) = ((HWREG(ADC0_BASE + ADC_O_TSSEL) &
-                                          ~(0x30 << ui32Gen)) |
-                                          ((ui32Trigger & 0x30) << ui32Gen));
+        HWREG(ui32Base + ADC_O_TSSEL) = ((HWREG(ui32Base + ADC_O_TSSEL) &
+                                         ~(0x30 << ui32Gen)) |
+                                         ((ui32Trigger & 0x30) << ui32Gen));
     }
 }
 
@@ -933,6 +933,7 @@ ADCSoftwareOversampleConfigure(uint32_t ui32Base, uint32_t ui32SequenceNum,
                                uint32_t ui32Factor)
 {
     uint32_t ui32Value;
+    uint32_t ui32ADCInst;
 
     //
     // Check the arguments.
@@ -951,9 +952,21 @@ ADCSoftwareOversampleConfigure(uint32_t ui32Base, uint32_t ui32SequenceNum,
     }
 
     //
+    // Evaluate the ADC Instance.
+    //
+    if(ui32Base == ADC0_BASE)
+    {
+        ui32ADCInst = 0;
+    }
+    else
+    {
+        ui32ADCInst = 1;
+    }
+
+    //
     // Save the shift factor.
     //
-    g_pui8OversampleFactor[ui32SequenceNum] = ui32Value;
+    g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum] = ui32Value;
 }
 
 //*****************************************************************************
@@ -977,14 +990,30 @@ void
 ADCSoftwareOversampleStepConfigure(uint32_t ui32Base, uint32_t ui32SequenceNum,
                                    uint32_t ui32Step, uint32_t ui32Config)
 {
+    uint32_t ui32ADCInst;
+
+    //
+    // Evaluate the ADC Instance.
+    //
+    if(ui32Base == ADC0_BASE)
+    {
+        ui32ADCInst = 0;
+    }
+    else
+    {
+        ui32ADCInst = 1;
+    }
+
     //
     // Check the arguments.
     //
     ASSERT((ui32Base == ADC0_BASE) || (ui32Base == ADC1_BASE));
     ASSERT(ui32SequenceNum < 3);
     ASSERT(((ui32SequenceNum == 0) &&
-            (ui32Step < (8 >> g_pui8OversampleFactor[ui32SequenceNum]))) ||
-           (ui32Step < (4 >> g_pui8OversampleFactor[ui32SequenceNum])));
+            (ui32Step < 
+            (8 >> g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum]))) ||
+           (ui32Step < 
+           (4 >> g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum])));
 
     //
     // Get the offset of the sequence to be configured.
@@ -994,13 +1023,14 @@ ADCSoftwareOversampleStepConfigure(uint32_t ui32Base, uint32_t ui32SequenceNum,
     //
     // Compute the shift for the bits that control this step.
     //
-    ui32Step *= 4 << g_pui8OversampleFactor[ui32SequenceNum];
+    ui32Step *= 4 << g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum];
 
     //
     // Loop through the hardware steps that make up this step of the software
     // oversampled sequence.
     //
-    for(ui32SequenceNum = 1 << g_pui8OversampleFactor[ui32SequenceNum];
+    for(ui32SequenceNum = 
+        (1 << g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum]);
         ui32SequenceNum; ui32SequenceNum--)
     {
         //
@@ -1063,6 +1093,20 @@ ADCSoftwareOversampleDataGet(uint32_t ui32Base, uint32_t ui32SequenceNum,
                              uint32_t *pui32Buffer, uint32_t ui32Count)
 {
     uint32_t ui32Idx, ui32Accum;
+    uint32_t ui32ADCInst;
+
+    //
+    // Evaluate the ADC Instance.
+    //
+    if(ui32Base == ADC0_BASE)
+    {
+        ui32ADCInst = 0;
+    }
+    else
+    {
+        ui32ADCInst = 1;
+    }
+
 
     //
     // Check the arguments.
@@ -1070,8 +1114,10 @@ ADCSoftwareOversampleDataGet(uint32_t ui32Base, uint32_t ui32SequenceNum,
     ASSERT((ui32Base == ADC0_BASE) || (ui32Base == ADC1_BASE));
     ASSERT(ui32SequenceNum < 3);
     ASSERT(((ui32SequenceNum == 0) &&
-            (ui32Count < (8 >> g_pui8OversampleFactor[ui32SequenceNum]))) ||
-           (ui32Count < (4 >> g_pui8OversampleFactor[ui32SequenceNum])));
+            (ui32Count < 
+            (8 >> g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum]))) ||
+            (ui32Count < 
+            (4 >> g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum])));
 
     //
     // Get the offset of the sequence to be read.
@@ -1087,8 +1133,8 @@ ADCSoftwareOversampleDataGet(uint32_t ui32Base, uint32_t ui32SequenceNum,
         // Compute the sum of the samples.
         //
         ui32Accum = 0;
-        for(ui32Idx = 1 << g_pui8OversampleFactor[ui32SequenceNum]; ui32Idx;
-            ui32Idx--)
+        for(ui32Idx = 1 << g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum];
+            ui32Idx; ui32Idx--)
         {
             //
             // Read the FIFO and add it to the accumulator.
@@ -1099,7 +1145,8 @@ ADCSoftwareOversampleDataGet(uint32_t ui32Base, uint32_t ui32SequenceNum,
         //
         // Write the averaged sample to the output buffer.
         //
-        *pui32Buffer++ = ui32Accum >> g_pui8OversampleFactor[ui32SequenceNum];
+        *pui32Buffer++ = 
+            ui32Accum >> g_pui8OversampleFactor[ui32ADCInst][ui32SequenceNum];
     }
 }
 

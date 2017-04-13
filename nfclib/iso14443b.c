@@ -2,7 +2,7 @@
 //
 // iso14443B.c - ISO 14443B implementation.
 //
-// Copyright (c) 2010-2016 Texas Instruments Incorporated.  All rights reserved.
+// Copyright (c) 2010-2017 Texas Instruments Incorporated.  All rights reserved.
 // Software License Agreement
 //
 // Texas Instruments (TI) is supplying this software for use solely and

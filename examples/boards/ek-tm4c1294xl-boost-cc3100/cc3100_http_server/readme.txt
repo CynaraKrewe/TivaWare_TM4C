@@ -37,7 +37,7 @@ the project root directory:
 
 -------------------------------------------------------------------------------
 
-Copyright (c) 2016 Texas Instruments Incorporated.  All rights reserved.
+Copyright (c) 2016-2017 Texas Instruments Incorporated.  All rights reserved.
 Software License Agreement
 
 Texas Instruments (TI) is supplying this software for use solely and
@@ -53,4 +53,4 @@ A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. TI SHALL NOT, UNDER ANY
 CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, FOR ANY REASON WHATSOEVER.
 
-This is part of revision 2.1.3.156 of the EK-TM4C1294XL Firmware Package.
+This is part of revision 2.1.4.178 of the EK-TM4C1294XL Firmware Package.
